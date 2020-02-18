@@ -20,8 +20,6 @@ package foo;
 import com.hazelcast.config.Config;
 import com.hazelcast.config.JoinConfig;
 import com.hazelcast.core.Hazelcast;
-import com.hazelcast.nio.serialization.Portable;
-import com.hazelcast.nio.serialization.PortableFactory;
 import com.hazelcast.spi.properties.ClusterProperty;
 
 public class Cluster {
@@ -36,12 +34,12 @@ public class Cluster {
 
         config.getUserCodeDeploymentConfig().setEnabled(true);
 
-        config.getSerializationConfig().addPortableFactory(1, new PortableFactory() {
-            @Override
-            public Portable create(int classId) {
-                return new Person();
-            }
-        });
+//        config.getSerializationConfig().addPortableFactory(1, new PortableFactory() {
+//            @Override
+//            public Portable create(int classId) {
+//                return new Person();
+//            }
+//        });
         Hazelcast.newHazelcastInstance(config);
     }
 }

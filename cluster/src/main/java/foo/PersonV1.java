@@ -22,22 +22,20 @@ import com.hazelcast.nio.serialization.VersionedPortable;
 
 import java.io.IOException;
 
-public class Person implements VersionedPortable {
+public class PersonV1 implements VersionedPortable {
 
     private String name;
-    private int age;
 
-    public Person() {
+    public PersonV1() {
     }
 
-    public Person(String name, int age) {
+    public PersonV1(String name, int age) {
         this.name = name;
-        this.age = age;
     }
 
     @Override
     public int getClassVersion() {
-        return 2;
+        return 1;
     }
 
     @Override
@@ -53,28 +51,20 @@ public class Person implements VersionedPortable {
     @Override
     public void writePortable(PortableWriter writer) throws IOException {
         writer.writeUTF("name", name);
-        writer.writeInt("age", age);
     }
 
     @Override
     public void readPortable(PortableReader reader) throws IOException {
         name = reader.readUTF("name");
-        age = reader.readInt("age");
     }
 
     public String getName() {
         return name;
     }
 
-    public int getAge() {
-        return age;
-    }
-
     @Override
     public String toString() {
         return "Person{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                '}';
+                "name='" + name + "}";
     }
 }
