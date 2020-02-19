@@ -24,29 +24,27 @@ import com.hazelcast.core.IExecutorService;
 import com.hazelcast.spi.properties.ClusterProperty;
 
 import java.io.Serializable;
-import java.util.concurrent.ExecutionException;
 
 public class MemberAppRunnable {
 
 
-    public static void main(String[] args) throws InterruptedException, ExecutionException {
+    public static void main(String[] args) throws InterruptedException {
         Config config = new Config();
         config.setProperty(ClusterProperty.PHONE_HOME_ENABLED.getName(), "false");
-
-        config.getUserCodeDeploymentConfig().setEnabled(true);
-
         JoinConfig join = config.getNetworkConfig().getJoin();
         join.getMulticastConfig().setEnabled(false);
         join.getTcpIpConfig().setEnabled(true).addMember("127.0.0.1:5701").addMember("127.0.0.1:5702");
+
+        config.getUserCodeDeploymentConfig().setEnabled(true);
         HazelcastInstance member = Hazelcast.newHazelcastInstance(config);
 
         IExecutorService executorService = member.getExecutorService("test");
 
         while (true) {
             Thread.sleep(5000);
-            executorService.executeOnAllMembers((Serializable & Runnable) () -> {
-                System.out.println("App1Runnable");
-            });
+            final String input = "SendFrom1";
+            executorService.executeOnAllMembers((Serializable & Runnable) () -> System.out.println("Lambda1 " + input + " " + input.hashCode()));
+            executorService.executeOnAllMembers(new MyRunnable("SendFrom1"));
         }
 
     }
