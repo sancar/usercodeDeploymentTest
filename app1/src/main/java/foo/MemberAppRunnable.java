@@ -43,7 +43,7 @@ public class MemberAppRunnable {
         while (true) {
             Thread.sleep(5000);
             final String input = "SendFrom1";
-            executorService.executeOnAllMembers((Serializable & Runnable) () -> System.out.println("Lambda1 " + input + " " + input.hashCode()));
+            executorService.executeOnAllMembers((Serializable & Runnable) () -> System.out.println("Lambda1 " + input + " " + input.length()));
             executorService.executeOnAllMembers(new MyRunnable("SendFrom1"));
         }
 
