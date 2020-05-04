@@ -32,7 +32,7 @@ public class Cluster {
         join.getMulticastConfig().setEnabled(false);
         join.getTcpIpConfig().setEnabled(true).addMember("127.0.0.1:5701");
 
-        config.getUserCodeDeploymentConfig().setEnabled(true);
+//        config.getUserCodeDeploymentConfig().setEnabled(true);
 
 //        config.getSerializationConfig().addPortableFactory(1, new PortableFactory() {
 //            @Override

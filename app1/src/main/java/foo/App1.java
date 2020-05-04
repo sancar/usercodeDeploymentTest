@@ -22,6 +22,9 @@ import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.map.IMap;
 import com.hazelcast.nio.serialization.Portable;
 import com.hazelcast.nio.serialization.PortableFactory;
+import com.hazelcast.query.impl.predicates.SqlPredicate;
+
+import java.util.Collection;
 
 public class App1 {
 
@@ -45,6 +48,8 @@ public class App1 {
             Thread.sleep(5000);
             System.out.println("v1: " + test.get("v1"));
             System.out.println("v2: " + test.get("v2"));
+            Collection values = test.values(new SqlPredicate("age != NULL"));
+            System.out.println(values.size());
         }
     }
 }

@@ -35,7 +35,7 @@ public class Person implements VersionedPortable {
 
     @Override
     public int getClassVersion() {
-        return 1;
+        return 3;
     }
 
     @Override
